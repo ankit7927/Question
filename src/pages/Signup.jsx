@@ -6,18 +6,27 @@ const Signup = () => {
     const navigate = useNavigate()
     const [name, setname] = useState("")
     const [email, setemail] = useState("")
-
     const [password, setpassword] = useState("")
     const [cnfPass, setcnfPass] = useState("")
-    const [message, setmessage] = useState({})
-    const [loading, setloading] = useState(false)
+    const [reqINT, setreqINT] = useState({
+        loading: false,
+        success: false,
+        error: ""
+    })
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setloading(true)
+        setreqINT({
+            loading: true,
+            success: false,
+            error: ""
+        })
         if (password !== cnfPass) {
-            setmessage({ "content": "both password should be same.", "type": "alert-warning" })
-            setloading(false)
+            setreqINT({
+                loading: false,
+                success: false,
+                error: "both password should be the same"
+            })
             return
         }
         cAxios(null).post("/user/signup",
@@ -27,27 +36,33 @@ const Signup = () => {
                 "password": password
             })
             .then(res => {
-                console.log(res.data);
-                setloading(false)
+                setreqINT({
+                    loading: false,
+                    success: true,
+                    error: ""
+                })
                 navigate("/signin")
             }).catch(err => {
                 console.log(err)
-                setloading(false)
-                setmessage({ "content": err.response.data, "type": "alert-danger" })
+                setreqINT({
+                    loading: false,
+                    success: false,
+                    error: err.response.data
+                })
             })
     }
 
     return (
         <div>
-            <div className="container h-100 mt-3">
+            <div className="container h-100 mt-4">
                 <div className="row justify-content-sm-center h-100">
                     <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
                         <div className="card shadow-lg">
                             <div className="card-body p-5">
                                 {
-                                    message.content
-                                        ? <div className={`alert ${message.type}`} role="alert">
-                                            {message.content}
+                                    reqINT.error !== ""
+                                        ? <div className="alert alert-danger" role="alert">
+                                            {reqINT.error}
                                         </div>
                                         : <></>
                                 }
@@ -96,7 +111,7 @@ const Signup = () => {
                                     <div className="align-items-center d-flex">
                                         <button type="submit" className="btn btn-primary ms-auto">
                                             {
-                                                loading
+                                                reqINT.loading
                                                     ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                                     : <></>
                                             }
