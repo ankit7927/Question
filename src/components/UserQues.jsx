@@ -33,7 +33,7 @@ const UserQues = () => {
                     setreqINT({
                         loading: false,
                         success: false,
-                        error: err.response.data
+                        error: err.response.data.message
                     })
                 })
             return () => temp.current = true

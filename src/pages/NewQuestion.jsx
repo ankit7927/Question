@@ -42,12 +42,13 @@ const NewQuestion = () => {
           success: true,
           error: ""
         })
+        navigate("/questions")
       }).catch(err => {
         console.log(err)
         setreqINT({
           loading: false,
           success: false,
-          error: err.response.data
+          error: err.response.data.message
         })
       })
   }
@@ -67,15 +68,15 @@ const NewQuestion = () => {
         <h1 className="text-center mb-4">Ask a Question</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label for="questionTitle" className="form-label">Title</label>
+            <label htmlFor="questionTitle" className="form-label">Title</label>
             <input type="text" className="form-control" id="questionTitle" placeholder="Enter your question title" onChange={(e) => settitle(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label for="questionBody" className="form-label">Body</label>
+            <label htmlFor="questionBody" className="form-label">Body</label>
             <textarea className="form-control" id="questionBody" rows="10" placeholder="Enter your question description" onChange={(e) => setconent(e.target.value)}></textarea>
           </div>
           <div className="mb-3">
-            <label for="questionTags" className="form-label">Tags</label>
+            <label htmlFor="questionTags" className="form-label">Tags</label>
             <input type="text" className="form-control" id="questionTags" placeholder="Enter your question tags (separated by commas)" onChange={(e) => settags(e.target.value)} />
           </div>
           <button type="submit" className="btn btn-primary">

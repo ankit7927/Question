@@ -32,18 +32,13 @@ const Home = () => {
 
   return (
     <div>
-      <section className="hero py-5">
+      <section className="hero py-4">
         <div className="container">
           <h1 className="text-center mb-4">Ask Anything, Get Answers</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <input type="text" className="form-control" placeholder="Search for a question..." onChange={(e) => setquery(e.target.value)} />
-              <button type="submit" className="btn btn-primary">Search</button>
-            </div>
-          </form>
+          <input type="search" onClick={() => navigate(`/search`)} className="form-control" placeholder="Search for a question..." />
         </div>
       </section>
-      <section className="questions py-5">
+      <section className="questions py-4">
         <div className="container">
           <div className="row">
             <div className="col-md-8">

@@ -23,7 +23,7 @@ const Signin = () => {
             success: false,
             error: ""
         })
-        cAxios(null).post("/user/signin",
+        cAxios(null).post("/auth/signin",
             {
                 "email": email,
                 "password": password
@@ -36,7 +36,7 @@ const Signin = () => {
                 }
                 dispatch(setProfile(p))
                 dispatch(setLoggedin(true))
-                dispatch(setToken(res.data.token))
+                dispatch(setToken(res.data.accessToken))
                 setreqINT({
                     loading: false,
                     success: true,
@@ -48,7 +48,7 @@ const Signin = () => {
                 setreqINT({
                     loading: false,
                     success: false,
-                    error: err.response.data
+                    error: err.response.data.message
                 })
             })
     }

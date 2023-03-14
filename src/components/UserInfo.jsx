@@ -24,7 +24,7 @@ const UserInfo = () => {
             success: false,
             error: ""
         })
-        Caxios(token).put("/user/profile", {
+        Caxios(token).patch("/user/profile", {
             "name": name,
             "email": email
         }).then(res => {
@@ -39,7 +39,7 @@ const UserInfo = () => {
             setreqINT({
                 loading: false,
                 success: false,
-                error: err.response.data
+                error: err.response.data.message
             })
         })
     }
@@ -60,7 +60,7 @@ const UserInfo = () => {
                 </div>
                 <div className="col-md-6">
                     <label for="gender" className="form-label">Gender</label>
-                    <select id="gender" className="form-select" name="gender" value={gender}
+                    <select id="gender" className="form-select" name="gender" defaultValue={gender}
                         onChange={(e) => setgender(e.target.value)}>
                         <option selected>Choose...</option>
                         <option value="male">male</option>
@@ -75,7 +75,7 @@ const UserInfo = () => {
                     <button type="submit" className="btn btn-primary">
                         {
                             reqINT.loading
-                                ? <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 : <></>
                         }
                         Update

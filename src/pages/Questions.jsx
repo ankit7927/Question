@@ -32,7 +32,7 @@ const Questions = () => {
                 setreqINT({
                     loading: false,
                     success: false,
-                    error: err.response.data
+                    error: err.response.data.message
                 })
             })
     }, [])
@@ -42,7 +42,7 @@ const Questions = () => {
     }
 
     return (
-        <section className="py-5">
+        <section className="py-3">
             <div className="container">
                 {
                     reqINT.error !== ""

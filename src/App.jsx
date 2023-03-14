@@ -15,7 +15,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path='search/:query' element={<Search />} />
+        <Route path='search' element={<Search />} />
         <Route path='ques/:questID'>
           <Route index element={<Question />} />
         </Route>

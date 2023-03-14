@@ -25,18 +25,18 @@ const QuestionCard = (props) => {
 
             Caxios(token).get(`/ques/vote/${e.target.id}`)
                 .then(res => {
+                    question.votes = res.data.votes
                     setreqINT({
                         loading: false,
                         success: true,
                         error: ""
                     })
-                    e.target.value = `Votes ${res.data}`
                 }).catch(err => {
                     console.log(err);
                     setreqINT({
                         loading: false,
                         success: false,
-                        error: err.response.data
+                        error: err.response.data.message
                     })
                 })
         }
@@ -45,20 +45,21 @@ const QuestionCard = (props) => {
     return (
         <div className="card mb-3" key={question._id}>
             <div className="card-body">
-                <div className="row">
+                <h5 className="card-title"><Link to={`/ques/${question._id}`}>{question.question.title}</Link></h5>
+                <p className="card-text">{question.question.content}</p>
+            </div>
+            <div className="card-footer text-muted border-0">
+                <div className='row'>
                     <div className="col-10">
-                        <h5 className="card-title"><Link to={`/ques/${question._id}`}>{question.question.title}</Link></h5>
-                        <p className="card-text">{question.question.content}</p>
+                        Asked by {question.name} on {new Date(question.createdAt).toLocaleDateString()}
                     </div>
                     <div className="col-2 d-flex justify-content-end align-items-center">
-                        <input type="button" id={question._id} className="btn btn-outline-primary btn-sm" value={`Votes ${question.votes}`}
+                        <input type="button" id={question._id} className="btn btn-light btn-sm border-0" value={`Votes ${question.votes}`}
                             onClick={handleVoteClick}>
                         </input>
                     </div>
                 </div>
-
             </div>
-            <div className="card-footer text-muted border-0">Asked by {question.name} on {new Date(question.createdAt).toLocaleDateString()}</div>
         </div>
     )
 }

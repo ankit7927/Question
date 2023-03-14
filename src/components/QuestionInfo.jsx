@@ -29,6 +29,7 @@ const QuestionInfo = (props) => {
 
             Caxios(token).get(url)
                 .then(res => {
+                    question.votes = res.data.votes
                     setreqINT({
                         loading: false,
                         success: true,
@@ -39,7 +40,7 @@ const QuestionInfo = (props) => {
                     setreqINT({
                         loading: false,
                         success: false,
-                        error: err.response.data
+                        error: err.response.data.message
                     })
                 })
         }

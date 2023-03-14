@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { FaEllipsisV } from "react-icons/fa";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import Answer from '../components/Answer'
 import CreateAns from '../components/CreateAns'
 import Loading from '../components/Loading'
@@ -46,19 +49,20 @@ const Question = () => {
                 error: ""
             })
 
-            Caxios(token).get(`/ques/save/${question._id}`)
+            Caxios(token).get(`/user/save-rem/${question._id}`)
                 .then(res => {
                     setreqINT({
                         loading: false,
                         success: true,
                         error: ""
                     })
+                    console.log(res.data);
                 }).catch(err => {
                     console.log(err);
                     setreqINT({
                         loading: false,
                         success: false,
-                        error: err.response.data
+                        error: err.response.data.message
                     })
                 })
         }
@@ -80,10 +84,15 @@ const Question = () => {
                                 <h2 className="mb-4">{question.question.title}</h2>
                             </div>
                             <div className="col-2 d-flex justify-content-end align-items-center">
-                                <button name="save" className={`btn btn-outline-primary btn-sm`}
-                                    onClick={handleBTNClick}>
-                                    Save
-                                </button>
+                                <Popup trigger={
+                                    <button className='btn border-0'><FaEllipsisV /></button>
+                                }
+                                    position="left">
+                                    <button name="save" className="btn btn-primary m-2"
+                                        onClick={handleBTNClick}>
+                                        Save
+                                    </button>
+                                </Popup>
                             </div>
                         </div>
 
@@ -99,7 +108,7 @@ const Question = () => {
                     </div>
                     <div className="col-md-4">
                         <QuestionInfo question={question} />
-                        <CreateAns quesID={question._id} updateQue={setquestion}/>
+                        <CreateAns quesID={question._id} updateQue={setquestion} />
                     </div>
                 </div>
             </div>

@@ -1,16 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import img from '../assets/avatar.png'
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from '../state/slices/UserSlice'
 import UserInfo from '../components/UserInfo'
 import UserQues from '../components/UserQues'
+import Caxios from '../extras/Caxios'
 
 const Profile = () => {
     const dispatch = useDispatch()
     const profile = useSelector((state) => state.user.profile)
+    const [reqINT, setreqINT] = useState({
+        loading: false,
+        success: false,
+        error: ""
+    })
+
+    const logoutBtn = ()=>{
+        Caxios(null).post("/auth/logout")
+        .then(res=>{
+            dispatch(logout())
+            setreqINT({
+                loading: false,
+                success: true,
+                error: ""
+            })
+        }).catch(err => {
+            console.log(err);
+            setreqINT({
+                loading: false,
+                success: false,
+                error: err.response.data.message
+            })
+        })
+    }
 
     return (
-        <div className="mt-3">
+        <div className="py-4">
             <div className="row">
                 <div className="col-lg-4 mb-4">
                     <div className="card">
@@ -19,7 +44,7 @@ const Profile = () => {
                                 <img alt="user dp" className="card-img-top" src={img} />
                                 <div className="mt-3">
                                     <p className="text-secondary mb-1">{profile.username}</p>
-                                    <button onClick={() => dispatch(logout())} className="btn btn-outline-danger">Logout</button>
+                                    <button onClick={logoutBtn} className="btn btn-outline-danger">Logout</button>
                                 </div>
                             </div>
                         </div>

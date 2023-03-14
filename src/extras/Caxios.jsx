@@ -5,9 +5,9 @@ const local_url = "http://localhost:4000"
 
 const Caxios = (token) => {
     return axios.create({
-        baseURL: api_url,
+        baseURL: local_url,
         headers: {
-            Authorization: token
+            Authorization: `Bearer ${token}`
         }
     })
 }

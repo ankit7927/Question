@@ -47,7 +47,7 @@ const Signup = () => {
                 setreqINT({
                     loading: false,
                     success: false,
-                    error: err.response.data
+                    error: err.response.data.message
                 })
             })
     }
