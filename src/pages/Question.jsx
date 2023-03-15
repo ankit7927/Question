@@ -32,7 +32,6 @@ const Question = () => {
                     setloading(false)
                 }).catch(err => {
                     console.log(err);
-
                     setloading(false)
                 })
             return () => temp.current = true
@@ -73,44 +72,40 @@ const Question = () => {
 
     return (
         <section className="py-5">
-            <div className="container">
-
-                <div className="row">
-                    <div className="col-md-8">
-
-                        <div className="row">
-                            <div className="col-10">
-                                <h2 className="mb-4">{question.question.title}</h2>
-                            </div>
-                            <div className="col-2 d-flex justify-content-end align-items-center">
-                                <Popup trigger={<button className='btn border-0'><FaEllipsisV /></button>} position="left">
-                                    {
-                                        reqINT.loading
-                                            ? <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div>
-                                            : <button name="save" className="btn btn-primary m-2"
-                                                onClick={handleBTNClick}>
-                                                Save
-                                            </button>
-                                    }
-                                </Popup>
-                            </div>
+            <div className="row">
+                <div className="col-md-8">
+                    <div className="row">
+                        <div className="col-10">
+                            <h2 className="mb-4">{question.question.title}</h2>
                         </div>
-                        <p>{question.question.content}</p>
-                        <div className="mt-5">
-                            <h3 className="mb-4">Answers ({question.answers.length})</h3>
-                            {
-                                question.answers.map((ans) => {
-                                    return <Answer answer={ans} quesID={question._id} />
-                                })
-                            }
+                        <div className="col-2 d-flex justify-content-end align-items-center">
+                            <Popup trigger={<button className='btn border-0'><FaEllipsisV /></button>} position="left">
+                                {
+                                    reqINT.loading
+                                        ? <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        : <button name="save" className="btn btn-primary m-2"
+                                            onClick={handleBTNClick}>
+                                            Save
+                                        </button>
+                                }
+                            </Popup>
                         </div>
                     </div>
-                    <div className="col-md-4">
-                        <QuestionInfo question={question} />
-                        <CreateAns quesID={question._id} updateQue={setquestion} />
+                    <p>{question.question.content}</p>
+                    <div className="mt-5">
+                        <h3 className="mb-4">Answers ({question.answers.length})</h3>
+                        {
+                            question.answers.map((ans) => {
+                                return <Answer answer={ans} quesID={question._id} />
+                            })
+                        }
                     </div>
+                </div>
+                <div className="col-md-4">
+                    <QuestionInfo question={question} />
+                    <CreateAns quesID={question._id} updateQue={setquestion} />
                 </div>
             </div>
         </section>
