@@ -32,7 +32,7 @@ const Question = () => {
                     setquestion(res.data)
                     setloading(false)
                 }).catch(err => {
-                    console.log(err);
+                    
                     setloading(false)
                 })
             return () => temp.current = true
@@ -56,7 +56,7 @@ const Question = () => {
                         error: null
                     })
                 }).catch(err => {
-                    console.log(err);
+                    
                     setreqINT({
                         loading: false,
                         success: false,

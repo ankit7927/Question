@@ -33,7 +33,7 @@ const QuestionCard = (props) => {
                         error: null
                     })
                 }).catch(err => {
-                    console.log(err);
+                    
                     setreqINT({
                         loading: false,
                         success: false,

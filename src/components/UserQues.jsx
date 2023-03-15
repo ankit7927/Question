@@ -47,7 +47,7 @@ const UserQues = () => {
         Caxios(token).delete(`/ques/save/${e.target.id}`)
             .then(res => {
             }).catch(err => {
-                console.log(err);
+                
             })
     }
 

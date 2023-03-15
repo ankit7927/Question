@@ -22,7 +22,7 @@ const Answer = (props) => {
             setreqINT({
                 loading: true,
                 success: false,
-                error: ""
+                error: null
             })
 
             Caxios(token).get(`/ques/vote/${props.quesID}/${answer._id}`)
@@ -31,10 +31,10 @@ const Answer = (props) => {
                     setreqINT({
                         loading: false,
                         success: true,
-                        error: ""
+                        error: null
                     })
                 }).catch(err => {
-                    console.log(err);
+                    
                     setreqINT({
                         loading: false,
                         success: false,

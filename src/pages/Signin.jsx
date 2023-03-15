@@ -44,7 +44,7 @@ const Signin = () => {
                 })
                 navigate("/", { state: { from: location }, replace: true })
             }).catch(err => {
-                console.log(err);
+                
                 setreqINT({
                     loading: false,
                     success: false,

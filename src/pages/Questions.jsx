@@ -29,7 +29,7 @@ const Questions = () => {
                     error: null
                 })
             }).catch(err => {
-                console.log(err);
+                
                 setreqINT({
                     loading: false,
                     success: false,

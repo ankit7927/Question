@@ -1,11 +1,13 @@
 import axios from "axios";
 
-const api_url = "https://question-api-u69e.onrender.com"
-const local_url = "http://localhost:4000"
+let api_url = ""
+if (import.meta.env.VITE_ENV === "pro")
+    api_url = import.meta.env.VITE_API_URL
+else api_url = "http://localhost:4000"
 
 const Caxios = (token) => {
     return axios.create({
-        baseURL: local_url,
+        baseURL: api_url,
         headers: {
             Authorization: `Bearer ${token}`
         }

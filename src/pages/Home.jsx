@@ -2,11 +2,13 @@ import Caxios from '../extras/Caxios'
 import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../components/Loading'
 import { Link, useNavigate } from 'react-router-dom'
+import ErrorModel from '../components/ErrorModal'
 
 const Home = () => {
   const navigate = useNavigate()
   const [quesIndex, setquesIndex] = useState({})
   const [loading, setloading] = useState(true)
+  const [message, setmessage] = useState(null)
   const temp = useRef(false)
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const Home = () => {
         .then(res => {
           setquesIndex(res.data)
           setloading(false)
-        }).catch(err => console.log(err))
+        }).catch(err => setmessage(err.response.data.message))
       return () => temp.current = true
     }
   }, [])
@@ -26,6 +28,7 @@ const Home = () => {
 
   return (
     <div>
+      <ErrorModel errorMessage={message} />
       <section className="hero py-4">
         <div className="container">
           <h1 className="text-center mb-4">Ask Anything, Get Answers</h1>

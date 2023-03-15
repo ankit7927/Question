@@ -31,7 +31,7 @@ const Profile = () => {
                     error: null
                 })
             }).catch(err => {
-                console.log(err);
+                
                 setreqINT({
                     loading: false,
                     success: false,
