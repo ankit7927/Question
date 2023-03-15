@@ -25,7 +25,7 @@ const QuestionInfo = (props) => {
             })
 
             let url = `/ques/vote/${question._id}`
-            
+
 
             Caxios(token).get(url)
                 .then(res => {
@@ -56,15 +56,21 @@ const QuestionInfo = (props) => {
                 <p className="card-text"><strong>Date:</strong> {new Date(question.createdAt).toLocaleDateString()}</p>
 
                 <p className="row">
-                    <div className="col-10">
+                    <span className="col-10">
                         <strong>Votes:</strong> {question.votes}
-                    </div>
-                    <div className="col-2 d-flex justify-content-end align-items-center">
-                        <button name='question' className={`btn btn-outline-primary btn-sm border-0`}
-                            onClick={handleBTNClick}>
-                            Vote
-                        </button>
-                    </div>
+                    </span>
+                    <span className="col-2 d-flex justify-content-end align-items-center">
+                        {
+                            reqINT.loading
+                                ? <div className="spinner-border text-primary" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                : <button name='question' className={`btn btn-outline-primary btn-sm border-0`}
+                                    onClick={handleBTNClick}>
+                                    Vote
+                                </button>
+                        }
+                    </span>
                 </p>
                 <p className="card-text"><strong>Views:</strong> {question.views}</p>
             </div>

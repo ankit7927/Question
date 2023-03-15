@@ -29,7 +29,10 @@ const CreateAns = (props) => {
                 "name": name,
                 "quesID": quesID,
             }).then(res => {
-                props.updateQue(res.data)
+                props.updateQue((ques) => ({
+                    ...ques,
+                    answers: res.data.answers
+                }))
                 setanswer("")
                 setreqINT({
                     loading: false,
@@ -61,9 +64,15 @@ const CreateAns = (props) => {
                     <div className="mb-3">
                         <input type="email" className="form-control" id="answer" rows="5" onChange={(e) => setemail(e.target.value)} placeholder="your@email.com" required value={email} />
                     </div>
-                    <button type="submit" className={`btn btn-primary`}>
-                        Submit Answer
-                    </button>
+                    {
+                        reqINT.loading
+                            ? <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                            : <button type="submit" className={`btn btn-primary`}>
+                                Submit Answer
+                            </button>
+                    }
                 </form>
             </div>
         </div>

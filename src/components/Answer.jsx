@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Caxios from '../extras/Caxios'
-import { FaEllipsisV } from "react-icons/fa";
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 const Answer = (props) => {
@@ -50,9 +48,7 @@ const Answer = (props) => {
         <div className="card mb-3" key={answer._id}>
             <div className="card-body">
                 <div className="row">
-
                     <p className="card-text">{answer.answer}</p>
-
                 </div>
             </div>
             <div className="card-footer text-muted border-0">
@@ -61,9 +57,15 @@ const Answer = (props) => {
                         by {answer.name} on {new Date(answer.createdAt).toLocaleDateString()}
                     </div>
                     <div className="col-2 d-flex justify-content-end align-items-center">
-                        <input type="button" className="btn btn-light border-0 btn-sm" value={`Votes ${answer.votes}`}
-                            onClick={voteBTN}>
-                        </input>
+                        {
+                            reqINT.loading
+                                ? <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                : <input type="button" className="btn btn-light border-0 btn-sm" value={`Votes ${answer.votes}`}
+                                    onClick={voteBTN}>
+                                </input>
+                        }
                     </div>
                 </div>
             </div>

@@ -54,9 +54,15 @@ const QuestionCard = (props) => {
                         Asked by {question.name} on {new Date(question.createdAt).toLocaleDateString()}
                     </div>
                     <div className="col-2 d-flex justify-content-end align-items-center">
-                        <input type="button" id={question._id} className="btn btn-light btn-sm border-0" value={`Votes ${question.votes}`}
-                            onClick={handleVoteClick}>
-                        </input>
+                        {
+                            reqINT.loading
+                                ? <div className="spinner-border text-primary" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                : <input type="button" id={question._id} className="btn btn-light btn-sm border-0" value={`Votes ${question.votes}`}
+                                    onClick={handleVoteClick}>
+                                </input>
+                        }
                     </div>
                 </div>
             </div>

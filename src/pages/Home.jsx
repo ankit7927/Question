@@ -7,7 +7,6 @@ const Home = () => {
   const navigate = useNavigate()
   const [quesIndex, setquesIndex] = useState({})
   const [loading, setloading] = useState(true)
-  const [query, setquery] = useState("")
   const temp = useRef(false)
 
   useEffect(() => {
@@ -20,11 +19,6 @@ const Home = () => {
       return () => temp.current = true
     }
   }, [])
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    navigate(`/search/${query}`)
-  }
 
   if (loading) {
     return <Loading />

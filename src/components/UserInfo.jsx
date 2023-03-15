@@ -72,14 +72,13 @@ const UserInfo = () => {
                     <input type="file" className="form-control" id="profile" onChange={(e) => setprofilepic(e.target.value)} />
                 </div>
                 <div className="col-auto">
-                    <button type="submit" className="btn btn-primary">
-                        {
-                            reqINT.loading
-                                ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                : <></>
-                        }
-                        Update
-                    </button>
+                    {
+                        reqINT.loading
+                            ? <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                            : <button type="submit" className="btn btn-primary">Update</button>
+                    }
                 </div>
             </form>
         </div>

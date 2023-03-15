@@ -15,23 +15,23 @@ const Profile = () => {
         error: ""
     })
 
-    const logoutBtn = ()=>{
+    const logoutBtn = () => {
         Caxios(null).post("/auth/logout")
-        .then(res=>{
-            dispatch(logout())
-            setreqINT({
-                loading: false,
-                success: true,
-                error: ""
+            .then(res => {
+                dispatch(logout())
+                setreqINT({
+                    loading: false,
+                    success: true,
+                    error: ""
+                })
+            }).catch(err => {
+                console.log(err);
+                setreqINT({
+                    loading: false,
+                    success: false,
+                    error: err.response.data.message
+                })
             })
-        }).catch(err => {
-            console.log(err);
-            setreqINT({
-                loading: false,
-                success: false,
-                error: err.response.data.message
-            })
-        })
     }
 
     return (
@@ -44,7 +44,13 @@ const Profile = () => {
                                 <img alt="user dp" className="card-img-top" src={img} />
                                 <div className="mt-3">
                                     <p className="text-secondary mb-1">{profile.username}</p>
-                                    <button onClick={logoutBtn} className="btn btn-outline-danger">Logout</button>
+                                    {
+                                        reqINT.loading
+                                            ? <div className="spinner-border text-primary" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                            : <button onClick={logoutBtn} className="btn btn-outline-danger">Logout</button>
+                                    }
                                 </div>
                             </div>
                         </div>

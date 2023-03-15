@@ -109,14 +109,13 @@ const Signup = () => {
                                     </p>
 
                                     <div className="align-items-center d-flex">
-                                        <button type="submit" className="btn btn-primary ms-auto">
-                                            {
-                                                reqINT.loading
-                                                    ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                                    : <></>
-                                            }
-                                            Register
-                                        </button>
+                                        {
+                                            reqINT.loading
+                                                ? <div className="spinner-border text-primary" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div>
+                                                : <button type="submit" className="btn btn-primary ms-auto">Register</button>
+                                        }
                                     </div>
                                 </form>
                             </div>

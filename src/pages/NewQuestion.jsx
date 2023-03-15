@@ -79,14 +79,13 @@ const NewQuestion = () => {
             <label htmlFor="questionTags" className="form-label">Tags</label>
             <input type="text" className="form-control" id="questionTags" placeholder="Enter your question tags (separated by commas)" onChange={(e) => settags(e.target.value)} />
           </div>
-          <button type="submit" className="btn btn-primary">
-            {
-              reqINT.loading
-                ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                : <></>
-            }
-            Submit
-          </button>
+          {
+            reqINT.loading
+              ? <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              : <button type="submit" className="btn btn-primary">Submit</button>
+          }
         </form>
       </div>
     </section>
