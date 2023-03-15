@@ -5,6 +5,7 @@ import { logout } from '../state/slices/UserSlice'
 import UserInfo from '../components/UserInfo'
 import UserQues from '../components/UserQues'
 import Caxios from '../extras/Caxios'
+import ErrorModel from '../components/ErrorModal'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -12,17 +13,22 @@ const Profile = () => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     const logoutBtn = () => {
+        setreqINT({
+            loading: true,
+            success: false,
+            error: null
+        })
         Caxios(null).post("/auth/logout")
             .then(res => {
                 dispatch(logout())
                 setreqINT({
                     loading: false,
                     success: true,
-                    error: ""
+                    error: null
                 })
             }).catch(err => {
                 console.log(err);
@@ -36,6 +42,7 @@ const Profile = () => {
 
     return (
         <div className="py-4">
+            <ErrorModel errorMessage={reqINT.error} />
             <div className="row">
                 <div className="col-lg-4 mb-4">
                     <div className="card">

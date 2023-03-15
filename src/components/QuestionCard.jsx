@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import Caxios from '../extras/Caxios'
+import ErrorModel from './ErrorModal'
 
 const QuestionCard = (props) => {
     const question = props.question
@@ -10,7 +11,7 @@ const QuestionCard = (props) => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     const handleVoteClick = (e) => {
@@ -20,7 +21,7 @@ const QuestionCard = (props) => {
             setreqINT({
                 loading: true,
                 success: false,
-                error: ""
+                error: null
             })
 
             Caxios(token).get(`/ques/vote/${e.target.id}`)
@@ -29,7 +30,7 @@ const QuestionCard = (props) => {
                     setreqINT({
                         loading: false,
                         success: true,
-                        error: ""
+                        error: null
                     })
                 }).catch(err => {
                     console.log(err);
@@ -44,6 +45,7 @@ const QuestionCard = (props) => {
 
     return (
         <div className="card mb-3" key={question._id}>
+            <ErrorModel errorMessage={reqINT.error} />
             <div className="card-body">
                 <h5 className="card-title"><Link to={`/ques/${question._id}`}>{question.question.title}</Link></h5>
                 <p className="card-text">{question.question.content}</p>

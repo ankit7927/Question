@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Caxios from '../extras/Caxios'
+import ErrorModel from './ErrorModal'
 
 const QuestionInfo = (props) => {
 
@@ -11,7 +12,7 @@ const QuestionInfo = (props) => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     const handleBTNClick = (e) => {
@@ -21,7 +22,7 @@ const QuestionInfo = (props) => {
             setreqINT({
                 loading: true,
                 success: false,
-                error: ""
+                error:null
             })
 
             let url = `/ques/vote/${question._id}`
@@ -33,7 +34,7 @@ const QuestionInfo = (props) => {
                     setreqINT({
                         loading: false,
                         success: true,
-                        error: ""
+                        error: null
                     })
                 }).catch(err => {
                     console.log(err);
@@ -49,6 +50,7 @@ const QuestionInfo = (props) => {
 
     return (
         <div className="card mb-4">
+            <ErrorModel errorMessage={reqINT.error} />
             <div className="card-body">
                 <h5 className="card-title">Question Information</h5>
                 <hr />

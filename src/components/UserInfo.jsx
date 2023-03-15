@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProfile } from '../state/slices/UserSlice'
 import Caxios from '../extras/Caxios'
+import ErrorModel from './ErrorModal'
 
 const UserInfo = () => {
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ const UserInfo = () => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     const handleSubmit = (e) => {
@@ -22,7 +23,7 @@ const UserInfo = () => {
         setreqINT({
             loading: true,
             success: false,
-            error: ""
+            error: null
         })
         Caxios(token).patch("/user/profile", {
             "name": name,
@@ -32,7 +33,7 @@ const UserInfo = () => {
             setreqINT({
                 loading: false,
                 success: true,
-                error: ""
+                error: null
             })
         }).catch(err => {
             console.log(err)
@@ -46,6 +47,7 @@ const UserInfo = () => {
 
     return (
         <div className="card-body">
+            <ErrorModel errorMessage={reqINT.error} />
             <h5 className="card-title">Basic Details</h5>
             <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">

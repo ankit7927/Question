@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Caxios from '../extras/Caxios'
+import ErrorModel from './ErrorModal';
 import Loading from './Loading';
 
 const UserQues = () => {
@@ -11,7 +12,7 @@ const UserQues = () => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     useEffect(() => {
@@ -19,14 +20,14 @@ const UserQues = () => {
             setreqINT({
                 loading: true,
                 success: false,
-                error: ""
+                error: null
             })
             Caxios(token).get("/user/questions")
                 .then(res => {
                     setreqINT({
                         loading: false,
                         success: true,
-                        error: ""
+                        error: null
                     })
                     setquestion(res.data)
                 }).catch(err => {
@@ -55,6 +56,7 @@ const UserQues = () => {
     } else {
         return (
             <div className="card-body">
+                <ErrorModel errorMessage={reqINT.error} />
                 <nav>
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                         <button className="nav-link active" id="nav-asked-tab" data-bs-toggle="tab" data-bs-target="#nav-asked" type="button" role="tab" aria-controls="nav-asked" aria-selected="true">Asked</button>
@@ -71,7 +73,7 @@ const UserQues = () => {
                                     return <div className="list-group-item list-group-item-action" key={que._id}>
                                         <div className="d-flex w-100 justify-content-between">
                                             <Link to={`/ques/${que._id}`} className="mb-1 h5">{que.question.title}</Link>
-                                            <button classNameName="btn btn-outline-danger btn-sm" id={que._id} onClick={removeHandle}>
+                                            <button className="btn btn-outline-danger btn-sm" id={que._id} onClick={removeHandle}>
                                                 remove
                                             </button>
                                         </div>

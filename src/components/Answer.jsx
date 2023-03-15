@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Caxios from '../extras/Caxios'
 import 'reactjs-popup/dist/index.css';
+import ErrorModel from './ErrorModal';
 
 const Answer = (props) => {
     const answer = props.answer
@@ -11,7 +12,7 @@ const Answer = (props) => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     const voteBTN = (e) => {
@@ -46,6 +47,7 @@ const Answer = (props) => {
 
     return (
         <div className="card mb-3" key={answer._id}>
+            <ErrorModel errorMessage={reqINT.error} />
             <div className="card-body">
                 <div className="row">
                     <p className="card-text">{answer.answer}</p>

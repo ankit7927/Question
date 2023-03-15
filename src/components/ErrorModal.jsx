@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
 
-function ErrorModel(props) {
-    const loader = props.loader
-    const [show, setShow] = useState(false);
+function ErrorModel({ errorMessage }) {
+    const [style, setstyle] = useState({})
 
-    const handleClose = () => { setShow(false) }
+    useEffect(() => {
+        setstyle({
+            display: errorMessage !== null ? "block" : "none"
+        })
+    }, [errorMessage])
 
-    useEffect(()=>{
-        setShow(true)
-    }, [loader.success])
+    const handleClose = () => {
+        setstyle({
+            display: "none"
+        })
+    }
 
     return (
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Error</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{loader.error}</Modal.Body>
-        </Modal>
+        <div className="modal" style={style} tabIndex="-1">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Error</h5>
+                        <button type="button" className="btn-close" onClick={handleClose}></button>
+                    </div>
+                    <div className="modal-body">
+                        {errorMessage}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Caxios from '../extras/Caxios'
+import ErrorModel from './ErrorModal'
 
 const CreateAns = (props) => {
     const quesID = props.quesID
@@ -11,7 +12,7 @@ const CreateAns = (props) => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
 
@@ -20,7 +21,7 @@ const CreateAns = (props) => {
         setreqINT({
             loading: true,
             success: false,
-            error: ""
+            error: null
         })
         Caxios(null).post("/ques/answer",
             {
@@ -37,7 +38,7 @@ const CreateAns = (props) => {
                 setreqINT({
                     loading: false,
                     success: true,
-                    error: ""
+                    error: null
                 })
             }).catch(err => {
                 console.log(err)
@@ -52,6 +53,7 @@ const CreateAns = (props) => {
 
     return (
         <div className="card">
+            <ErrorModel errorMessage={reqINT.error} />
             <div className="card-body">
                 <h5 className="card-title">Write an Answer</h5>
                 <form onSubmit={handleSubmit}>
@@ -62,7 +64,7 @@ const CreateAns = (props) => {
                         <input type="text" className="form-control" id="answer" rows="5" onChange={(e) => setname(e.target.value)} placeholder="your name" required value={name} />
                     </div>
                     <div className="mb-3">
-                        <input type="email" className="form-control" id="answer" rows="5" onChange={(e) => setemail(e.target.value)} placeholder="your@email.com" required value={email} />
+                        <input type="email" className="form-control" id="answer" rows="5" onChange={(e) => setemail(e.target.value)} placeholder="your@email.com" value={email} />
                     </div>
                     {
                         reqINT.loading

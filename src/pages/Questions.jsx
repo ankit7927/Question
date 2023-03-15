@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import BlogCard from '../components/BlogCard'
+import ErrorModel from '../components/ErrorModal'
 import Loading from '../components/Loading'
 import QuestionCard from '../components/QuestionCard'
 import QuestionCat from '../components/QuestionCat'
@@ -10,14 +11,14 @@ const Questions = () => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     useEffect(() => {
         setreqINT({
             loading: true,
             success: false,
-            error: ""
+            error: null
         })
         Caxios(null).get(`/ques/latest`)
             .then(res => {
@@ -25,7 +26,7 @@ const Questions = () => {
                 setreqINT({
                     loading: false,
                     success: true,
-                    error: ""
+                    error: null
                 })
             }).catch(err => {
                 console.log(err);
@@ -44,13 +45,7 @@ const Questions = () => {
     return (
         <section className="py-3">
             <div className="container">
-                {
-                    reqINT.error !== ""
-                        ? <div className="alert alert-danger" role="alert">
-                            {reqINT.error}
-                        </div>
-                        : <></>
-                }
+                <ErrorModel errorMessage={reqINT.error} />
                 <div className="row">
                     <div className="col-md-8">
                         <QuestionCat setQuestion={setQuestion} />

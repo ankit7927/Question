@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import ErrorModel from '../components/ErrorModal'
 import Caxios from '../extras/Caxios'
 
 const NewQuestion = () => {
@@ -13,7 +14,7 @@ const NewQuestion = () => {
   const [reqINT, setreqINT] = useState({
     loading: false,
     success: false,
-    error: ""
+    error: null
   })
 
 
@@ -22,7 +23,7 @@ const NewQuestion = () => {
     setreqINT({
       loading: true,
       success: false,
-      error: ""
+      error: null
     })
     if (token === "") {
       navigate("/signin")
@@ -40,7 +41,7 @@ const NewQuestion = () => {
         setreqINT({
           loading: false,
           success: true,
-          error: ""
+          error: null
         })
         navigate("/questions")
       }).catch(err => {
@@ -57,14 +58,7 @@ const NewQuestion = () => {
   return (
     <section className="ask-question py-5">
       <div className="container">
-        {
-          reqINT.error !== ""
-            ? <div className='alert alert-danger' role="alert">
-              {reqINT.error}
-            </div>
-            : <></>
-        }
-
+        <ErrorModel errorMessage={reqINT.error} />
         <h1 className="text-center mb-4">Ask a Question</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

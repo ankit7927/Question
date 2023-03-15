@@ -9,6 +9,7 @@ import CreateAns from '../components/CreateAns'
 import Loading from '../components/Loading'
 import QuestionInfo from '../components/QuestionInfo'
 import Caxios from '../extras/Caxios'
+import ErrorModel from '../components/ErrorModal';
 
 const Question = () => {
     const param = useParams()
@@ -20,7 +21,7 @@ const Question = () => {
     const [reqINT, setreqINT] = useState({
         loading: false,
         success: false,
-        error: ""
+        error: null
     })
 
     useEffect(() => {
@@ -45,15 +46,14 @@ const Question = () => {
             setreqINT({
                 loading: true,
                 success: false,
-                error: ""
+                error:null
             })
-
             Caxios(token).get(`/user/save-rem/${question._id}`)
                 .then(res => {
                     setreqINT({
                         loading: false,
                         success: true,
-                        error: ""
+                        error: null
                     })
                 }).catch(err => {
                     console.log(err);
@@ -72,6 +72,7 @@ const Question = () => {
 
     return (
         <section className="py-5">
+            <ErrorModel errorMessage={reqINT.error} />
             <div className="row">
                 <div className="col-md-8">
                     <div className="row">
